@@ -1,8 +1,0 @@
-{
-  "dependencies": {
-    "interactjs": "^1.10.1"
-  },
-  "devDependencies": {
-    "@interactjs/types": "^1.10.1"
-  }
-}
