@@ -58,6 +58,10 @@ body {
     margin: 0;
     padding: 0;
 
+    // .whitePiece img {
+    //   filter: invert(1) drop-shadow(1px 1px 6px rgba(0, 0, 0, 0.836));
+    // }
+
     .piece {
       font-size: 10px;
       touch-action: none;
@@ -69,12 +73,15 @@ body {
       align-items: center;
 
       img {
-        width: 70%;
+        // width: 70%;
         height: 70%;
       }
     }
     .yellow {
-      background: yellow;
+      background: rgba(255, 255, 0, 0.623);
     }
+  }
+  .green {
+    background: rgba(0, 128, 0, 0.563);
   }
 }

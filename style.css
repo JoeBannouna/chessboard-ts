@@ -61,11 +61,13 @@ body {
   align-items: center;
 }
 #board .square .piece img {
-  width: 70%;
   height: 70%;
 }
 #board .square .yellow {
-  background: yellow;
+  background: rgba(255, 255, 0, 0.623);
+}
+#board .green {
+  background: rgba(0, 128, 0, 0.563);
 }
 
 /*# sourceMappingURL=style.css.map */

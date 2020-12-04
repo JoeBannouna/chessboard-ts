@@ -1,4 +1,5 @@
-import { pieces } from './boardState.js';
+// Import the boardState
+import { } from './boardState.js';
 
 // Return position using id
 export const returnPositionFromId = id => {
@@ -11,7 +12,7 @@ export const returnPositionFromId = id => {
 };
 
 // Return ID using position
-export const returnIdFromPosition = position => position[0] + (position[1] - 1) * 8;
+export const returnIdFromPosition = position => position[0] + (position[1]) * 8;
 
 // Decides if a square should be black or white
 export const blackOrWhite = id => {
@@ -21,9 +22,12 @@ export const blackOrWhite = id => {
 };
 
 // Renders a piece
-export const renderPiece = id => boardState[id - 1].url ? 
-  `"><piece class="piece"><img src="${boardState[id - 1].url}"></piece>` : ' empty">';
+export const renderPiece = id => {
+  if (boardState[id]) {
+    const {url, type} = boardState[id];
+    return url ? ` has${type}"><piece class="piece ${type}Piece"><img src="${url}"></piece>` : ' empty"><piece class="piece"></piece>';
+  }
+};
 
 // Renders a square
-export const renderSquare = id =>
-  `<square id="square-${id}" class="square ${blackOrWhite(id)}${renderPiece(id)}</square>`;
+export const renderSquare = id => `<square id="square-${id}" class="square ${blackOrWhite(id)}${renderPiece(id)}</square>`;
