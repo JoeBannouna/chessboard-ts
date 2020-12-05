@@ -3,27 +3,16 @@ body {
   margin: 0;
   box-sizing: border-box;
   min-height: 100vh;
+  min-width: 100%;
   font-family: sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
 }
 
 * {
   box-sizing: border-box;
-}
-
-.noselect {
-  -webkit-touch-callout: none;
-  /* iOS Safari */
-  -webkit-user-select: none;
-  /* Safari */
-  -khtml-user-select: none;
-  /* Konqueror HTML */
-  -moz-user-select: none;
-  /* Old versions of Firefox */
-  -ms-user-select: none;
-  /* Internet Explorer/Edge */
-  user-select: none;
-  /* Non-prefixed version, currently
-               supported by Chrome, Edge, Opera and Firefox */
 }
 
 #board {
@@ -31,6 +20,8 @@ body {
   width: 80vmin;
   height: 80vmin;
   overflow: hidden;
+  box-shadow: #000 0px 0px 20px;
+  border-radius: 5px;
 }
 #board .white {
   background-color: #fff8f3;
@@ -62,6 +53,20 @@ body {
 }
 #board .square .piece img {
   height: 70%;
+  -webkit-touch-callout: none;
+  /* iOS Safari */
+  -webkit-user-select: none;
+  /* Safari */
+  -khtml-user-select: none;
+  /* Konqueror HTML */
+  -moz-user-select: none;
+  /* Old versions of Firefox */
+  -ms-user-select: none;
+  /* Internet Explorer/Edge */
+  user-select: none;
+  /* Non-prefixed version, currently supported by Chrome, Edge, Opera and Firefox */
+  touch-action: none;
+  -webkit-user-drag: none;
 }
 #board .square .yellow {
   background: rgba(255, 255, 0, 0.623);

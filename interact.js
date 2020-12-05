@@ -1,7 +1,11 @@
 import interact from 'https://cdn.interactjs.io/v1.10.1/interactjs/index.js';
-import { dragMoveListener, movePiece, resetPiecePosition } from './dragging.js';
+import { dragMoveListener, dropzoneSettings, resetPiecePosition } from './dragging.js';
 
-interact('.square:not(.empty) .piece').draggable({
+window.turn = '';
+window.whitePieces = interact('.square:not(.empty) .piece.whitePiece');
+window.blackPieces = interact('.square:not(.empty) .piece.blackPiece');
+
+const config = {
   // keep the element within the area of it's parent
   modifiers: [
     interact.modifiers.restrictRect({
@@ -14,22 +18,38 @@ interact('.square:not(.empty) .piece').draggable({
     move: dragMoveListener,
     end: resetPiecePosition,
   },
-});
+};
 
+// DROPZONES
 interact('.hasblack, .empty').dropzone({
-  overlap: 0.35,
   accept: '.whitePiece',
-  ondrop: movePiece,
-  ondragenter: event => event.target.children[0].classList.add('yellow'),
-  ondragleave: event => event.target.children[0].classList.remove('yellow'),
-  ondropdeactivate: event => event.target.children[0].classList.remove('yellow'),
+  ...dropzoneSettings,
 });
 
 interact('.haswhite, .empty').dropzone({
-  overlap: 0.35,
   accept: '.blackPiece',
-  ondrop: movePiece,
-  ondragenter: event => event.target.children[0].classList.add('yellow'),
-  ondragleave: event => event.target.children[0].classList.remove('yellow'),
-  ondropdeactivate: event => event.target.children[0].classList.remove('yellow'),
+  ...dropzoneSettings,
 });
+
+export const switchTurn = () => {
+  const makeBlackTurn = () => {
+    blackPieces.draggable({ ...config, enabled: true });
+    whitePieces.draggable({ ...config, enabled: false });
+    return 'black';
+  };
+
+  const makeWhiteTurn = () => {
+    whitePieces.draggable({ ...config, enabled: true });
+    blackPieces.draggable({ ...config, enabled: false });
+    return 'white';
+  };
+
+  window.turn = window.turn == 'white' ? makeBlackTurn() : makeWhiteTurn();
+};
+
+export const reverseTheBoard = () => {
+  // Reverse the board
+  const doesntMatter = boardState.shift();
+  boardState.reverse();
+  boardState.unshift(doesntMatter);
+}

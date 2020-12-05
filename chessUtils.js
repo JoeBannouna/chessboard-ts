@@ -3,6 +3,7 @@ import { } from './boardState.js';
 
 // Return position using id
 export const returnPositionFromId = id => {
+  id = parseFloat(id);
   let y = 1;
   while (id / 8 > 1) {
     id = id - 8;
@@ -12,7 +13,7 @@ export const returnPositionFromId = id => {
 };
 
 // Return ID using position
-export const returnIdFromPosition = position => position[0] + (position[1]) * 8;
+export const returnIdFromPosition = position => (position[0] + (position[1]) * 8) - 8;
 
 // Decides if a square should be black or white
 export const blackOrWhite = id => {

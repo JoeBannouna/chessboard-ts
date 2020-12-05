@@ -3,40 +3,25 @@ body {
   margin: 0;
   box-sizing: border-box;
   min-height: 100vh;
+  min-width: 100%;
   font-family: sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
 }
 
 * {
   box-sizing: border-box;
 }
 
-.noselect {
-  -webkit-touch-callout: none; /* iOS Safari */
-  -webkit-user-select: none; /* Safari */
-  -khtml-user-select: none; /* Konqueror HTML */
-  -moz-user-select: none; /* Old versions of Firefox */
-  -ms-user-select: none; /* Internet Explorer/Edge */
-  user-select: none; /* Non-prefixed version, currently
-                                  supported by Chrome, Edge, Opera and Firefox */
-}
-
-// .box {
-//   background: #fff;
-//   border: 1px solid #999;
-//   border-radius: 3px;
-//   width: 180px;
-//   height: 180px;
-//   margin: 10px;
-//   padding: 10px;
-//   float: left;
-//   position: relative;
-// }
-
 #board {
   display: block;
   width: 80vmin;
   height: 80vmin;
   overflow: hidden;
+  box-shadow: #000 0px 0px 20px;
+  border-radius: 5px;
 
   .white {
     background-color: rgb(255, 248, 243);
@@ -58,10 +43,6 @@ body {
     margin: 0;
     padding: 0;
 
-    // .whitePiece img {
-    //   filter: invert(1) drop-shadow(1px 1px 6px rgba(0, 0, 0, 0.836));
-    // }
-
     .piece {
       font-size: 10px;
       touch-action: none;
@@ -73,8 +54,15 @@ body {
       align-items: center;
 
       img {
-        // width: 70%;
         height: 70%;
+        -webkit-touch-callout: none; /* iOS Safari */
+        -webkit-user-select: none; /* Safari */
+        -khtml-user-select: none; /* Konqueror HTML */
+        -moz-user-select: none; /* Old versions of Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+        user-select: none; /* Non-prefixed version, currently supported by Chrome, Edge, Opera and Firefox */
+        touch-action: none;
+        -webkit-user-drag: none;
       }
     }
     .yellow {

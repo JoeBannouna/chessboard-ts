@@ -1,12 +1,6 @@
 import { returnPositionFromId } from './chessUtils.js';
 import { pieces } from './boardState.js';
 
-// Turn a square green
-export const turnSquareGreen = target => {
-  document.querySelectorAll('.green').forEach(square => square.classList.remove('green'));
-  target.parentElement.classList.add('green');
-};
-
 // Move a piece with dragging animation
 const move = (target, x, y) => {
   // translate the element
@@ -18,15 +12,14 @@ const move = (target, x, y) => {
 };
 
 // Swapping 2 blocks on a board (moving)
-export const movePiece = ({ relatedTarget, target }) => {
+const movePiece = ({ relatedTarget, target }) => {
   // Declare block id's
   const targetId = target.id.substring(7);
   const originalId = relatedTarget.parentElement.id.substring(7);
 
-  // // IF THE THING CAN BE MOVED
-  // console.log(returnPositionFromId(originalId), returnPositionFromId(targetId));
-  // console.log(boardState[originalId])
-  // return;
+  // IF THE THING CAN BE MOVED
+  const canBeMoved = pieces[boardState[originalId].id].canMove(originalId, (targetId));
+  if (!canBeMoved) return;
 
   // SWAP 2 BLOCKS
   // const passVal = boardState[originalId];
@@ -46,10 +39,24 @@ export const dragMoveListener = event => {
 
   move(target, x, y);
 
-  turnSquareGreen(target);
+  turnSquareGreen([target]);
 };
 
 // Helper function to reset position of animation
 export const resetPiecePosition = ({ target }) => {
   move(target, 0, 0);
+};
+
+// Turn a square green
+export const turnSquareGreen = arrayOfTargets => {
+  document.querySelectorAll('.green').forEach(square => square.classList.remove('green'));
+  arrayOfTargets.forEach(target => target.parentElement.classList.add('green'))
+};
+
+export const dropzoneSettings = {
+  overlap: 0.35,
+  ondrop: movePiece,
+  ondragenter: event => event.target.children[0].classList.add('yellow'),
+  ondragleave: event => event.target.children[0].classList.remove('yellow'),
+  ondropdeactivate: event => event.target.children[0].classList.remove('yellow'),
 };
