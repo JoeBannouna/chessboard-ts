@@ -1,4 +1,5 @@
 import { returnIdFromPosition, returnPositionFromId } from './chessUtils.js';
+import { isSomethingInTheWayDirect } from './isSomethingInTheWay.js';
 
 export const pieces = {
   black: {
@@ -67,7 +68,15 @@ export const pieces = {
   },
   R: {
     name: 'Rook',
-    canMove: (currentId, targetId) => true,
+    canMove: (currentId, targetId) => {
+      const currentPos = returnPositionFromId(currentId);
+      const targetPos = returnPositionFromId(targetId);
+
+      const nothingIsIntheWay = isSomethingInTheWayDirect(currentPos, targetPos);
+
+      // Move only if moved in a direct way, and nothing in the way blocking
+      return (currentPos.x == targetPos.x || currentPos.y == targetPos.y) && nothingIsIntheWay;
+    },
   },
   H: {
     name: 'Knight',
@@ -75,6 +84,7 @@ export const pieces = {
       const currentPos = returnPositionFromId(currentId);
       const targetPos = returnPositionFromId(targetId);
 
+      // Movement of the knight must always have 2 steps on an axis, and one step on the other axis
       const movePos = [Math.abs(currentPos.x - targetPos.x), Math.abs(currentPos.y - targetPos.y)];
       return movePos.includes(1) && movePos.includes(2);
     },
@@ -101,19 +111,33 @@ export const pieces = {
     canMove: (currentId, targetId) => {
       const currentPos = returnPositionFromId(currentId);
       const targetPos = returnPositionFromId(targetId);
-      const eating = typeof boardState[targetId].type == 'string' && boardState[targetId].type != boardState[currentId].type;
-      let nothingIsIntheWay = true;
 
+      const eating = typeof boardState[targetId].type == 'string' && boardState[targetId].type != boardState[currentId].type;
+
+      // EATING
       if (eating) {
         return Math.abs(currentPos.x - targetPos.x) == 1 && currentPos.y - targetPos.y == 1;
-      } else {
+      }
+
+      // NOT EATING
+      else {
+        // Move one step to the front
         const movedOneBlock = currentPos.x == targetPos.x && currentPos.y - targetPos.y == 1;
+
+        // IF FIRST MOVE IS DONE ONLY 1 STEPS ARE ALLOWED
         if (boardState[currentId].firstMoveDone) {
           return movedOneBlock;
-        } else {
-          const movedTwoBlocks = currentPos.x == targetPos.x && currentPos.y - targetPos.y == 2;
-          if (movedTwoBlocks) nothingIsIntheWay = boardState[returnIdFromPosition([currentPos.x, targetPos.y + 1])].name == 'Empty';
+        }
 
+        // IF FIRST MOVE IS YET TO BE DONE BOTH 1 STEP AND 2 STEPS ARE ALLOWED
+        else {
+          // Move 2 steps to the front
+          const movedTwoBlocks = currentPos.x == targetPos.x && currentPos.y - targetPos.y == 2;
+
+          // If it moved 2 moves, test if there is anything in its way
+          const nothingIsIntheWay = movedTwoBlocks ? isSomethingInTheWayDirect(currentPos, targetPos) : true;
+
+          // CAN MOVE IF MOVED 1 OR 2 STEPS AND NO OBJECT IN THE WAY
           const canMove = (movedTwoBlocks || movedOneBlock) && nothingIsIntheWay;
 
           // Declare that the first move has been done for this piece

@@ -3,13 +3,12 @@ import { } from './boardState.js';
 
 // Return position using id
 export const returnPositionFromId = id => {
-  id = parseFloat(id);
   let y = 1;
   while (id / 8 > 1) {
     id = id - 8;
     y++;
   }
-  return { y: y, x: id };
+  return { y: y, x: parseFloat(id) };
 };
 
 // Return ID using position
