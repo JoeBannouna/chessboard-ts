@@ -1,5 +1,4 @@
-import { returnPositionFromId } from './chessUtils.js';
-import { pieces } from './boardState.js';
+import pieces from './pieces.js';
 
 // Move a piece with dragging animation
 const move = (target, x, y) => {
