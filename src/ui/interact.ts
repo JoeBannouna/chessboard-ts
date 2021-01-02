@@ -2,7 +2,7 @@
 import interact from 'https://cdn.interactjs.io/v1.10.1/interactjs/index.js';
 
 import { dragMoveListener, dropzoneSettings, resetPiecePosition } from './dragging.js';
-import './boardState.js';
+import '../board/boardState.js';
 
 window.turn = '';
 window.whitePieces = interact('.square:not(.empty) .piece.whitePiece');

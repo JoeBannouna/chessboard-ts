@@ -1,5 +1,5 @@
-import { returnPositionFromId } from '../chessUtils.js';
-import { isSomethingInTheWayDirect } from '../isSomethingInTheWay/direct.js';
+import { returnPositionFromId } from '../utils/chessUtils.js';
+import { isSomethingInTheWayDirect } from '../utils/isSomethingInTheWay/direct.js';
 
 const pawnLogic: PieceLogicFunc = (currentId, targetId) => {
   const currentPos = returnPositionFromId(currentId);
@@ -8,15 +8,10 @@ const pawnLogic: PieceLogicFunc = (currentId, targetId) => {
   const currentPieceState = boardState[currentId] as Pawn;
   const targetPieceState = boardState[targetId] as Piece;
 
-  console.log(typeof targetPieceState.id);
-  console.log(currentPieceState.type);
-  console.log(targetPieceState.type);
-
-  const eating = typeof targetPieceState.id !== null && ![currentPieceState.type, undefined].includes(targetPieceState.type);
+  const isEating = typeof targetPieceState.id !== null && ![currentPieceState.type, undefined].includes(targetPieceState.type);
 
   // EATING
-  if (eating) {
-    console.log('hey');
+  if (isEating) {
     return Math.abs(currentPos.x - targetPos.x) == 1 && currentPos.y - targetPos.y == 1;
   }
 
@@ -37,8 +32,6 @@ const pawnLogic: PieceLogicFunc = (currentId, targetId) => {
 
       // If it moved 2 moves, test if there is anything in its way
       const nothingIsIntheWay = movedTwoBlocks ? isSomethingInTheWayDirect(currentPos, targetPos) : true;
-
-      console.log(nothingIsIntheWay);
 
       // CAN MOVE IF MOVED 1 OR 2 STEPS AND NO OBJECT IN THE WAY
       const canMove = (movedTwoBlocks || movedOneBlock) && nothingIsIntheWay;

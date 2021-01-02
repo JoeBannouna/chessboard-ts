@@ -1,4 +1,4 @@
-import pieces from './pieces.js';
+import pieces from '../board/pieces.js';
 
 // Move a piece with dragging animation
 const move = (target, x, y) => {

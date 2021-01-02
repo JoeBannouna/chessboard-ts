@@ -1,5 +1,5 @@
-import { returnPositionFromId } from '../chessUtils.js';
-import { isSomethingInTheWayDirect } from '../isSomethingInTheWay/direct.js';
+import { returnPositionFromId } from '../utils/chessUtils.js';
+import { isSomethingInTheWayDirect } from '../utils/isSomethingInTheWay/direct.js';
 
 const rookLogic: PieceLogicFunc = (currentId, targetId) => {
   const currentPos = returnPositionFromId(currentId);

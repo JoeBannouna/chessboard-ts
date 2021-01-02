@@ -1,6 +1,6 @@
-import { returnPositionFromId } from '../chessUtils.js';
-import { isSomethingInTheWayDiagonal } from '../isSomethingInTheWay/diagonal.js';
-import { isSomethingInTheWayDirect } from '../isSomethingInTheWay/direct.js';
+import { returnPositionFromId } from '../utils/chessUtils.js';
+import { isSomethingInTheWayDiagonal } from '../utils/isSomethingInTheWay/diagonal.js';
+import { isSomethingInTheWayDirect } from '../utils/isSomethingInTheWay/direct.js';
 const queenLogic = (currentId, targetId) => {
     const currentPos = returnPositionFromId(currentId);
     const targetPos = returnPositionFromId(targetId);

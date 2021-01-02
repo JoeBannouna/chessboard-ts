@@ -1,9 +1,9 @@
-import bishopLogic from './pieceLogic/bishopLogic.js';
-import kingLogic from './pieceLogic/kingLogic.js';
-import knightLogic from './pieceLogic/knightLogic.js';
-import pawnLogic from './pieceLogic/pawnLogic.js';
-import rookLogic from './pieceLogic/rookLogic.js';
-import queenLogic from './pieceLogic/queenLogic.js';
+import bishopLogic from '../pieceLogic/bishopLogic.js';
+import kingLogic from '../pieceLogic/kingLogic.js';
+import knightLogic from '../pieceLogic/knightLogic.js';
+import pawnLogic from '../pieceLogic/pawnLogic.js';
+import rookLogic from '../pieceLogic/rookLogic.js';
+import queenLogic from '../pieceLogic/queenLogic.js';
 
 const returnType = (type: PieceTypes): PieceSet => ({
   R: { id: 'R', type, url: `./assets/chess-set/${type}/rook.png` },

@@ -1,4 +1,4 @@
-import { returnPositionFromId } from '../chessUtils.js';
+import { returnPositionFromId } from '../utils/chessUtils.js';
 const knightLogic = (currentId, targetId) => {
     const currentPos = returnPositionFromId(currentId);
     const targetPos = returnPositionFromId(targetId);

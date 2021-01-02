@@ -1,6 +1,6 @@
-import { renderSquare, returnPositionFromId } from './utils/chessUtils.js';
-import { turnSquareGreen } from './ui/dragging.js';
-import { reverseTheBoard, switchTurn } from './ui/interact.js';
+import { renderSquare, returnPositionFromId } from '../utils/chessUtils.js';
+import { turnSquareGreen } from '../ui/dragging.js';
+import { reverseTheBoard, switchTurn } from '../ui/interact.js';
 const board = document.getElementById('board');
 window.renderBoard = () => {
     reverseTheBoard();

@@ -1,5 +1,5 @@
 // Import the boardState
-import './boardState.js';
+import '../board/boardState.js';
 
 // Return position using id
 export const returnPositionFromId = (id: number): SquarePosition => {

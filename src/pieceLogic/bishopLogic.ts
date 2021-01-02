@@ -1,5 +1,5 @@
-import { returnPositionFromId } from '../chessUtils.js';
-import { isSomethingInTheWayDiagonal } from '../isSomethingInTheWay/diagonal.js';
+import { returnPositionFromId } from '../utils/chessUtils.js';
+import { isSomethingInTheWayDiagonal } from '../utils/isSomethingInTheWay/diagonal.js';
 
 const bishopLogic: PieceLogicFunc = (currentId, targetId) => {
   const currentPos = returnPositionFromId(currentId);

@@ -51,6 +51,5 @@ const getBlocksBetweenDiagonal = (currentPos: SquarePosition, targetPos: SquareP
   blocksBetween.pop();
 
   // Return the blocks id's
-  console.log(blocksBetween);
   return blocksBetween;
 };
