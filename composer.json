@@ -5,5 +5,6 @@
             "name": "JoeBennouna"
         }
     ],
+    "description": "A chess board written in javascript.",
     "require": {}
 }

@@ -1,9 +1,15 @@
 import pieces from './pieces.js';
 
-const { black, white, E } = pieces;
+interface BoardStateValues {
+  black: PieceSet,
+  white: PieceSet,
+  E: EmptyPiece
+}
+
+const { black, white, E }: BoardStateValues = pieces;
 
 window.boardState = [
-  'THIS VALUE DOESNT MATTER',
+  { id: undefined, name: 'THIS VALUE DOESNT MATTER' },
   black.R,
   black.H,
   black.B,

@@ -1,5 +1,8 @@
+// @ts-ignore
 import interact from 'https://cdn.interactjs.io/v1.10.1/interactjs/index.js';
+
 import { dragMoveListener, dropzoneSettings, resetPiecePosition } from './dragging.js';
+import './boardState.js';
 
 window.turn = '';
 window.whitePieces = interact('.square:not(.empty) .piece.whitePiece');
@@ -32,13 +35,13 @@ interact('.haswhite, .empty').dropzone({
 });
 
 export const switchTurn = () => {
-  const makeBlackTurn = () => {
+  const makeBlackTurn = (): 'black' => {
     blackPieces.draggable({ ...config, enabled: true });
     whitePieces.draggable({ ...config, enabled: false });
     return 'black';
   };
 
-  const makeWhiteTurn = () => {
+  const makeWhiteTurn = (): 'white' => {
     whitePieces.draggable({ ...config, enabled: true });
     blackPieces.draggable({ ...config, enabled: false });
     return 'white';

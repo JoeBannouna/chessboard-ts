@@ -1,9 +1,11 @@
+import bishopLogic from './pieceLogic/bishopLogic.js';
 import kingLogic from './pieceLogic/kingLogic.js';
 import knightLogic from './pieceLogic/knightLogic.js';
 import pawnLogic from './pieceLogic/pawnLogic.js';
 import rookLogic from './pieceLogic/rookLogic.js';
+import queenLogic from './pieceLogic/queenLogic.js';
 
-const returnType = type => ({
+const returnType = (type: PieceTypes): PieceSet => ({
   R: { id: 'R', type, url: `./assets/chess-set/${type}/rook.png` },
   H: { id: 'H', type, url: `./assets/chess-set/${type}/knight.png` },
   B: { id: 'B', type, url: `./assets/chess-set/${type}/bishop.png` },
@@ -12,7 +14,29 @@ const returnType = type => ({
   P: { id: 'P', type, url: `./assets/chess-set/${type}/pawn.png` },
 });
 
-const pieces = {
+// The type of the piece, wether its a rook, a king, a pawn etc..
+interface PieceType {
+  name: string;
+  canMove: PieceLogicFunc;
+}
+
+interface PawnPiece extends PieceType {
+  firstMoveDone?: boolean;
+}
+
+interface Pieces {
+  black: PieceSet;
+  white: PieceSet;
+  R: PieceType;
+  H: PieceType;
+  B: PieceType;
+  Q: PieceType;
+  K: PieceType;
+  P: PawnPiece;
+  E: EmptyPiece;
+}
+
+const pieces: Pieces = {
   black: returnType('black'),
   white: returnType('white'),
   R: {
@@ -25,11 +49,11 @@ const pieces = {
   },
   B: {
     name: 'Bishop',
-    canMove: (currentId, targetId) => true,
+    canMove: bishopLogic,
   },
   Q: {
     name: 'Queen',
-    canMove: (currentId, targetId) => true,
+    canMove: queenLogic,
   },
   K: {
     name: 'King',

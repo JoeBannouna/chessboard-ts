@@ -1,6 +1,6 @@
 import { returnPositionFromId } from '../chessUtils.js';
 
-const knightLogic = (currentId, targetId) => {
+const knightLogic: PieceLogicFunc = (currentId, targetId) => {
   const currentPos = returnPositionFromId(currentId);
   const targetPos = returnPositionFromId(targetId);
 
