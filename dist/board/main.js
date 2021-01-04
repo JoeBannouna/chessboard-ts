@@ -1,10 +1,14 @@
-import { renderSquare, returnPositionFromId } from '../utils/chessUtils.js';
+import '../ui/interact.js';
+import { returnPositionFromId } from '../utils/chessUtils.js';
 import { turnSquareGreen } from '../ui/dragging.js';
-import { reverseTheBoard, switchTurn } from '../ui/interact.js';
+import { reverseTheBoard, switchTurn } from '../utils/interact.js';
+import { renderSquare } from '../ui/square.js';
 const board = document.getElementById('board');
 window.renderBoard = () => {
     reverseTheBoard();
-    const boardSquares = boardState.map((piece, index) => renderSquare(index, piece));
+    const boardSquares = boardState.map((piece, index) => {
+        return renderSquare(index, piece);
+    });
     board.innerHTML = boardSquares.join('');
     document.querySelectorAll('.square:not(.empty) .piece').forEach((square) => (square.onclick = () => turnSquareGreen([square])));
     // For testing purposes only

@@ -1,4 +1,6 @@
+import interact from '../utils/interact.js';
 import pieces from '../board/pieces.js';
+import { renderSquare } from './square.js';
 // Move a piece with dragging animation
 const move = (target, x, y) => {
     // translate the element
@@ -8,20 +10,37 @@ const move = (target, x, y) => {
     target.setAttribute('data-y', y);
 };
 // Swapping 2 blocks on a board (moving)
-const movePiece = ({ relatedTarget, target }) => {
+export const movePiece = ({ relatedTarget, target }) => {
     // Declare block id's
     const targetId = target.id.substring(7);
     const originalId = relatedTarget.parentElement.id.substring(7);
     // IF THE THING CAN BE MOVED
-    const canBeMoved = pieces[boardState[originalId].id].canMove(originalId, (targetId));
+    const canBeMoved = pieces[boardState[originalId].id].canMove(originalId, targetId);
     if (!canBeMoved)
         return;
     // SWAP 2 BLOCKS
     // const passVal = boardState[originalId];
     boardState[targetId] = boardState[originalId];
     boardState[originalId] = pieces.E;
-    // Render the board
-    renderBoard();
+    // // Render the board
+    // renderBoard();
+    // A different approach, only swaping 2 squares
+    const loadSquare = (id) => {
+        document.getElementById('square-' + id).outerHTML = renderSquare(id, boardState[id]);
+    };
+    loadSquare(originalId);
+    loadSquare(targetId);
+    const makeBlackTurn = () => {
+        blackPieces.draggable({ ...config, enabled: true });
+        whitePieces.draggable({ ...config, enabled: false });
+        return 'black';
+    };
+    const makeWhiteTurn = () => {
+        whitePieces.draggable({ ...config, enabled: true });
+        blackPieces.draggable({ ...config, enabled: false });
+        return 'white';
+    };
+    window.turn = window.turn == 'white' ? makeBlackTurn() : makeWhiteTurn();
 };
 // Dragging animations
 export const dragMoveListener = event => {
@@ -41,10 +60,16 @@ export const turnSquareGreen = arrayOfTargets => {
     document.querySelectorAll('.green').forEach(square => square.classList.remove('green'));
     arrayOfTargets.forEach(target => target.parentElement.classList.add('green'));
 };
-export const dropzoneSettings = {
-    overlap: 0.35,
-    ondrop: movePiece,
-    ondragenter: event => event.target.children[0].classList.add('yellow'),
-    ondragleave: event => event.target.children[0].classList.remove('yellow'),
-    ondropdeactivate: event => event.target.children[0].classList.remove('yellow'),
+export const config = {
+    // keep the element within the area of it's parent
+    modifiers: [
+        interact.modifiers.restrictRect({
+            restriction: 'board',
+            endOnly: true,
+        }),
+    ],
+    listeners: {
+        move: dragMoveListener,
+        end: resetPiecePosition,
+    },
 };

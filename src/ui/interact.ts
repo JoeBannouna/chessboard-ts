@@ -1,27 +1,20 @@
 // @ts-ignore
 import interact from 'https://cdn.interactjs.io/v1.10.1/interactjs/index.js';
 
-import { dragMoveListener, dropzoneSettings, resetPiecePosition } from './dragging.js';
 import '../board/boardState.js';
+import { movePiece } from './dragging.js';
+
+export const dropzoneSettings = {
+  overlap: 0.35,
+  ondrop: movePiece,
+  ondragenter: event => event.target.children[0].classList.add('yellow'),
+  ondragleave: event => event.target.children[0].classList.remove('yellow'),
+  ondropdeactivate: event => event.target.children[0].classList.remove('yellow'),
+};
 
 window.turn = '';
 window.whitePieces = interact('.square:not(.empty) .piece.whitePiece');
 window.blackPieces = interact('.square:not(.empty) .piece.blackPiece');
-
-const config = {
-  // keep the element within the area of it's parent
-  modifiers: [
-    interact.modifiers.restrictRect({
-      restriction: 'board',
-      endOnly: true,
-    }),
-  ],
-
-  listeners: {
-    move: dragMoveListener,
-    end: resetPiecePosition,
-  },
-};
 
 // DROPZONES
 interact('.hasblack, .empty').dropzone({
@@ -33,26 +26,3 @@ interact('.haswhite, .empty').dropzone({
   accept: '.blackPiece',
   ...dropzoneSettings,
 });
-
-export const switchTurn = () => {
-  const makeBlackTurn = (): 'black' => {
-    blackPieces.draggable({ ...config, enabled: true });
-    whitePieces.draggable({ ...config, enabled: false });
-    return 'black';
-  };
-
-  const makeWhiteTurn = (): 'white' => {
-    whitePieces.draggable({ ...config, enabled: true });
-    blackPieces.draggable({ ...config, enabled: false });
-    return 'white';
-  };
-
-  window.turn = window.turn == 'white' ? makeBlackTurn() : makeWhiteTurn();
-};
-
-export const reverseTheBoard = () => {
-  // Reverse the board
-  const doesntMatter = boardState.shift();
-  boardState.reverse();
-  boardState.unshift(doesntMatter);
-}

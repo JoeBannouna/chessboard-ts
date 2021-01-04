@@ -1,22 +1,4 @@
-// Import the boardState
-import './boardState.js';
-// Return position using id
-export const returnPositionFromId = (id) => {
-    let y = 1;
-    while (id / 8 > 1) {
-        id -= 8;
-        y++;
-    }
-    return { x: +id, y };
-};
-// Return ID using position
-export const returnIdFromPosition = (position) => position.x + position.y * 8 - 8;
-// Decides if a square should be black or white
-export const blackOrWhite = (id) => {
-    const yEven = returnPositionFromId(id).y % 2 === 0 ? 0 : 1;
-    const white = (id - yEven) % 2 === 0;
-    return white ? 'white' : 'black';
-};
+import { blackOrWhite } from '../utils/chessUtils.js';
 // Renders a piece
 // @ts-expect-error
 export const renderPiece = ({ id, url, type }) => {
